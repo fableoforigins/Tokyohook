@@ -17,7 +17,7 @@ function hitmarker(hitpart, username, duration)
        local hitlog = Drawing.new('Text')
        hitlog.Size = 13
        hitlog.Font = 2
-       hitlog.Text = '[femboy.rip] damage inflicted to '..username..' on '..hitpart
+       hitlog.Text = '[Tokyohook] damage inflicted to '..username..' on '..hitpart
        hitlog.Visible = true
        hitlog.ZIndex = 3
        hitlog.Center = true
