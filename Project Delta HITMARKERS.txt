@@ -1,0 +1,46 @@
+--[[
+   Made by Riley#0808
+   delta hitmarkers.lua
+]]
+
+local notifications = {}
+local center = (workspace.CurrentCamera.ViewportSize / 2)
+
+function hitmarker_update()
+   for i = 1, #notifications do
+       notifications[i].Position = Vector2.new(center.X,(center.Y + 150) + (i * 18))
+   end
+end
+
+function hitmarker(hitpart, username, duration)
+   task.spawn(function()
+       local hitlog = Drawing.new('Text')
+       hitlog.Size = 13
+       hitlog.Font = 2
+       hitlog.Text = '[femboy.rip] damage inflicted to '..username..' on '..hitpart
+       hitlog.Visible = true
+       hitlog.ZIndex = 3
+       hitlog.Center = true
+       hitlog.Color = Color3.fromRGB(138,43,226)
+       hitlog.Outline = true
+
+       table.insert(notifications, hitlog)
+       hitmarker_update()
+       
+       wait(duration)
+       table.remove(notifications, table.find(notifications, hitlog))
+       hitmarker_update()
+       hitlog:Remove()
+   end)
+end
+
+local namecall ; namecall = hookmetamethod(game, '__namecall', function(obj, ...)
+   local args = {...}
+
+   if getnamecallmethod() == 'FireServer' and obj.Name == 'ProjectileInflict' then
+       hitmarker(tostring(args[2]), tostring(args[1]), 3)
+   end
+
+   
+   return namecall(obj, unpack(args))
+end)
