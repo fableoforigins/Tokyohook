@@ -1,0 +1,10 @@
+local VFX = nil
+for i, v in next, getgc(true) do
+    if type(v) == 'table' and rawget(v, "RecoilCamera") then
+        VFX = v
+        break
+    end
+end
+VFX.RecoilCamera = function(...)
+    return
+end

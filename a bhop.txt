@@ -1,0 +1,39 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+if LocalPlayer.Character then
+    local Humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if Humanoid then
+        Humanoid.StateChanged:Connect(function(_, newState)
+            if newState == Enum.HumanoidStateType.Landed then
+                if not UserInputService:IsKeyDown(Enum.KeyCode.Space) then return end
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end)
+    end
+end
+
+LocalPlayer.CharacterAdded:Connect(function(Character)
+    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+    if Humanoid then
+        Humanoid.StateChanged:Connect(function(_, newState)
+            if newState == Enum.HumanoidStateType.Landed then
+                if not UserInputService:IsKeyDown(Enum.KeyCode.Space) then return end
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end)
+    else
+        local c; c = Character.ChildAdded:Connect(function(Humanoid)
+            if Humanoid:IsA("Humanoid") then
+                Humanoid.StateChanged:Connect(function(_, newState)
+                    if newState == Enum.HumanoidStateType.Landed then
+                        if not UserInputService:IsKeyDown(Enum.KeyCode.Space) then return end
+                        Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    end
+                end)
+                c:Disconnect()
+            end
+        end)
+    end
+end)
