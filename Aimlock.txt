@@ -12,7 +12,7 @@ local MyTeamColor = LocalPlayer.TeamColor
 local HoldingM2 = false
 local Active = false
 local Lock = false
-local Epitaph = 0.167 ---Note: The Bigger The Number, The More Prediction.
+local Epitaph = 0 ---Note: The Bigger The Number, The More Prediction.
 local HeadOffset = Vector3.new(0, .1, 0)
 
 _G.TeamCheck = false
